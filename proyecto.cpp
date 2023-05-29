@@ -51,11 +51,11 @@ int main() {
             printf("Bienvenido al Sistema\n");
 
             int opcion;
-            printf("Ingrese una opcion: ");
-            printf("1) Auto Fantastico ");
-            printf("2) Choque ");
-            printf("3) Secuencia 1 ");
-            printf("4) Secuencia 2 ");
+            printf("Ingrese una opcion: \n");
+            printf("1) Auto Fantastico \n");
+            printf("2) Choque \n");
+            printf("3) Secuencia 1 \n");
+            printf("4) Secuencia 2 \n");
 
             scanf("%d", &opcion);
 
