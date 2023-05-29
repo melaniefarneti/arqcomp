@@ -1,23 +1,19 @@
-    ; Suponemos que los LEDs están conectados a pines específicos, y estos pines están configurados previamente en el programa
+; Suponemos que los LEDs están conectados a pines específicos, y estos pines están configurados previamente en el programa
 
 auto_fantastico:
     mov r1, #1      ; Valor inicial del patrón de luces
 
 loop:
     mov r2, #0      ; Contador para el desplazamiento de luces
-
     mov r3, #8      ; Número total de luces encendidas
-
     mov r0, r1      ; Patrón de luces actual
 
 shift_lights:
     and r4, r0, #1  ; Obtener el estado del LED más a la derecha
-
     cmp r4, #0
     beq turn_off_light
 
     ; Encender el LED correspondiente al contador r2
-
     ; Código para encender el LED (configurar el pin correspondiente)
 
     b next_light
