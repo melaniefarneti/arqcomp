@@ -1,0 +1,14 @@
+    ; R0 contiene el parámetro de entrada (unsigned long int)
+    ; R0 es la cantidad de segundos
+
+retardo:
+    cmp r0, #0       ; Compara el parámetro con cero
+    beq finretardo  ; Salta a la etiqueta de fin si es igual a cero
+
+loop:
+    sub r0, r0, #1   ; Decrementa el parámetro en 1
+    cmp r0, #0       ; Compara nuevamente el parámetro con cero
+    bne loop         ; Salta al inicio del ciclo si no es igual a cero
+
+finretardo:
+    bx lr            ; Regresa de la función (retorna al lugar de llamada)
