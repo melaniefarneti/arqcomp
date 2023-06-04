@@ -38,10 +38,52 @@ void disp_binary (int i){
 
 }
 
+void autoFantastico(int repeticiones) {
+    for (int i = 0; i < repeticiones; i++) {
+        for (int j = 0; j < 8; j++) {
+            for (int k = 0; k < 8; k++) {
+                if (k == j)
+                    printf("*");  // Encender la luz
+                else
+                    printf("_");  // Apagar la luz
+            }
+            printf("\n");
+        }
+        for (int j = 7; j >= 0; j--) {  // Iterar en sentido contrario
+            for (int k = 0; k < 8; k++) {
+                if (k == j)
+                    printf("*");  // Encender la luz
+                else
+                    printf("_");  // Apagar la luz
+            }
+            printf("\n");
+        }
+    }
+}
+
+void secuenciaChoque(const unsigned char* secuencia, int repeticiones) {
+    for (int i = 0; i < repeticiones; i++) {
+        for (int j = 0; j < 8; j++) {
+            unsigned char patron = secuencia[j];
+
+            for (int k = 0; k < 8; k++) {
+                if ((patron >> k) & 1)
+                    printf("*");  // Encender la luz
+                else
+                    printf("_");  // Apagar la luz
+            }
+            printf("\n");
+        }
+    }
+}
+
+
 int main() {
     char claveIngresada[6]; // 5 dígitos + 1 para el carácter nulo '\0'
     int intentos = 0;
     unsigned char choque[8] = {0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81};
+    unsigned char ameba[17] = {0x81, 0x41, 0x21, 0x11, 0x09, 0x05, 0x83, 0x83, 0x8C, 0x98, 0xB0, 0xE0, 0xE1, 0x71, 0x39, 0x1D, 0x0F};
+
 
     printf("Ingrese su contrasenia de 5 digitos: ");
 
@@ -64,28 +106,39 @@ int main() {
             printf("Ingrese una opcion: \n");
             printf("1) Auto Fantastico \n");
             printf("2) Choque \n");
-            printf("3) Secuencia 1 \n");
-            printf("4) Secuencia 2 \n");
+            printf("3) Carrera \n");
+            printf("4) Ameba \n");
+            printf("5) Secuencia 2 \n");
 
             scanf("%d", &opcion);
 
             switch (opcion) {
                 case 1: {
                     printf("Auto Fantastico\n");
+                    autoFantastico(3);
                     break;
                 }
                 case 2: {
                     printf("Choque\n");
-                    for (char i = 0; i <= 7; i++) {
+                    secuenciaChoque(choque,3);
+                    /*for (char i = 0; i <= 7; i++) {
                         disp_binary(choque[i]);
                     }
+                     */
                     break;
                 }
                 case 3: {
-                    printf("Secuencia 1\n");
+                    printf("Carrera\n");
                     break;
                 }
                 case 4: {
+                    printf("Ameba\n");
+                    for (unsigned char numero : ameba) {
+                        disp_binary(numero);
+                    }
+                    break;
+                }
+                case 5: {
                     printf("Secuencia 2\n");
                     break;
                 }
