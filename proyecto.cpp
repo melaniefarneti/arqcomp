@@ -1,27 +1,3 @@
-// no usar cout, usar printf
-
-// prj.s
-// Arqui I UCC
-
-/*
-.text
-
-.global main
-main:
-LDR R3, =array // load base address of a into R3
-... more code here
-done: NOP            // dummy instruction for breakpoint
-MOV PC,L       // return from main
-
-.data
-        array:
-.byte 0x08
-.byte 0x10
-.byte 0xFF
-... more data here
-.end
-*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -85,6 +61,7 @@ void PenduloDeNewton() {
     int posicionMovil = 0;
 
     while (1) {
+
         for (int i = 0; i < 7; i++) {
             if (i == posicionMovil) {
                 printf("%c", bolitaMovil);
@@ -140,9 +117,8 @@ int main() {
             printf("Ingrese una opcion: \n");
             printf("1) Auto Fantastico \n");
             printf("2) Choque \n");
-            printf("3) Carrera \n");
-            printf("4) Ameba \n");
-            printf("5) Secuencia 2 \n");
+            printf("3) Ameba \n");
+            printf("4) Pendulo de Newton \n");
 
             scanf("%d", &opcion);
 
@@ -162,20 +138,15 @@ int main() {
                     break;
                 }
                 case 3: {
-                    printf("Carrera\n");
-                    break;
-                }
-                case 4: {
                     printf("Ameba\n");
                     for (unsigned char numero : ameba) {
                         disp_binary(numero);
                     }
                     break;
                 }
-                case 5: {
-                    printf("Secuencia 2\n");
+                case 4: {
+                    printf("Pendulo de Newton\n");
                     PenduloDeNewton();
-                    break;
                 }
                 default: {
                     printf("Opcion invalida\n");
