@@ -25,6 +25,7 @@ MOV PC,L       // return from main
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h> // Para utilizar la función usleep
 
 #define MAX_INTENTOS 3
 #define CLAVE "12345"
@@ -77,6 +78,39 @@ void secuenciaChoque(const unsigned char* secuencia, int repeticiones) {
     }
 }
 
+void PenduloDeNewton() {
+    char bolitaFija = '*';
+    char bolitaMovil = '*';
+    int direccionDerecha = 1;
+    int posicionMovil = 0;
+
+    while (1) {
+        for (int i = 0; i < 7; i++) {
+            if (i == posicionMovil) {
+                printf("%c", bolitaMovil);
+            } else if (i == 3) {
+                printf("%c", bolitaFija);
+            } else {
+                printf("_");
+            }
+        }
+        printf("\n");
+
+        usleep(100000); // Esperar 100 milisegundos
+
+        if (direccionDerecha) {
+            posicionMovil++;
+            if (posicionMovil == 6) {
+                direccionDerecha = 0;
+            }
+        } else {
+            posicionMovil--;
+            if (posicionMovil == 0) {
+                direccionDerecha = 1;
+            }
+        }
+    }
+}
 
 int main() {
     char claveIngresada[6]; // 5 dígitos + 1 para el carácter nulo '\0'
@@ -140,6 +174,7 @@ int main() {
                 }
                 case 5: {
                     printf("Secuencia 2\n");
+                    PenduloDeNewton();
                     break;
                 }
                 default: {
