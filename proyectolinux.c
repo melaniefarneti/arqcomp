@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <curses.h>
 #include "EasyPIO.h"
+
 void ameba(void);
 void newton(void);
 
@@ -16,8 +17,6 @@ const int num_leds = sizeof(led) / sizeof(led[0]);
 
 int velocidad = 200000; // Velocidad inicial (200 milisegundos)
 
-extern void ameba_arm();
-extern void newton_arm();
 
 void hidePassword(char* password) {
     int ch;
@@ -52,9 +51,6 @@ void disp_binary(int i) {
     usleep(velocidad);
 }
 
-void ameba() {
-    ameba_arm();
-}
 
 void autoFantastico(int repeticiones) {
     for (int i = 0; i < repeticiones; i++) {
@@ -95,42 +91,6 @@ void secuenciaChoque(const unsigned char *secuencia, int repeticiones) {
     }
 }
 
-void Newton() {
-    char bolitaFija = '*';
-    char bolitaMovil = '*';
-    int direccionDerecha = 1;
-    int posicionMovil = 0;
-
-    while (1) {
-        for (int i = 0; i < 7; i++) {
-            if (i == posicionMovil) {
-                printf("%c", bolitaMovil);
-                digitalWrite(led[i], 1);
-            } else if (i == 3) {
-                printf("%c", bolitaFija);
-                digitalWrite(led[i], 1);
-            } else {
-                printf("_");
-                digitalWrite(led[i], 0);
-            }
-        }
-        printf("\n");
-        usleep(velocidad);
-
-        if (direccionDerecha) {
-            posicionMovil++;
-            if (posicionMovil == 6) {
-                direccionDerecha = 0;
-            }
-        } else {
-            posicionMovil--;
-            if (posicionMovil == 0) {
-                direccionDerecha = 1;
-            }
-        }
-    }
-}
-
 void ajustarVelocidad(int tecla) {
     switch (tecla) {
         case KEY_UP:
@@ -151,7 +111,6 @@ int main() {
     char claveIngresada[6];
     int intentos = 0;
     unsigned char choque[8] = {0x81, 0x42, 0x24, 0x18, 0x18, 0x24, 0x42, 0x81};
-    unsigned char ameba[17] = {0x81, 0x41, 0x21, 0x11, 0x09, 0x05, 0x83, 0x83, 0x8C, 0x98, 0xB0, 0xE0, 0xE1, 0x71, 0x39, 0x1D, 0x0F};
 
     printf("Ingrese su contraseña de 5 dígitos: ");
 
@@ -198,15 +157,12 @@ int main() {
                     break;
                 case 3:
                     printf("Ameba\n");
-                    ameba(10);
-                    //    for (i = 0; i < sizeof(ameba); i++) {
-                    //                        unsigned char numero = ameba[i];
-                    //                        disp_binary(numero);
-                    //                    }
+                    ameba();
+                }
                     break;
                 case 4:
                     printf("Newton\n");
-                    newton(10);
+                    newton();
                     //newton(4);
                     break;
                 case 5:
@@ -218,7 +174,7 @@ int main() {
             }
 
             endwin();
-            pioExit();
+            //pioExit();
 
             break;
         } else {
@@ -236,3 +192,53 @@ int main() {
 
     return 0;
 }
+
+
+/*
+void ameba() {
+    unsigned char ameba1[17] = {0x81, 0x41, 0x21, 0x11, 0x09, 0x05, 0x83, 0x83, 0x8C, 0x98, 0xB0, 0xE0, 0xE1, 0x71, 0x39, 0x1D, 0x0F};
+
+    for (int i = 0; i < sizeof(ameba1); i++) {
+        unsigned char numero = ameba1[i];
+        disp_binary(numero);
+    }
+}
+ */
+
+/*
+void Newton() {
+    char bolitaFija = '*';
+    char bolitaMovil = '*';
+    int direccionDerecha = 1;
+    int posicionMovil = 0;
+
+    while (1) {
+        for (int i = 0; i < 7; i++) {
+            if (i == posicionMovil) {
+                printf("%c", bolitaMovil);
+                digitalWrite(led[i], 1);
+            } else if (i == 3) {
+                printf("%c", bolitaFija);
+                digitalWrite(led[i], 1);
+            } else {
+                printf("_");
+                digitalWrite(led[i], 0);
+            }
+        }
+        printf("\n");
+        usleep(velocidad);
+
+        if (direccionDerecha) {
+            posicionMovil++;
+            if (posicionMovil == 6) {
+                direccionDerecha = 0;
+            }
+        } else {
+            posicionMovil--;
+            if (posicionMovil == 0) {
+                direccionDerecha = 1;
+            }
+        }
+    }
+}
+ */
